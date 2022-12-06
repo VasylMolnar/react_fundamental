@@ -1,8 +1,3 @@
-git
-add branch : git branch name
-delete branch : git branch --delete name or git branch -D name
-open branch : git checkout name
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
