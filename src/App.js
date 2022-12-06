@@ -1,6 +1,6 @@
 import  {React,useState}from 'react'
-import Square from './components/2/Square'
-import Input from './components/2/Input'
+import Square from './components/Square'
+import Input from './components/Input'
 
 function App() {
   const [color, setColor] = useState("")
@@ -12,7 +12,7 @@ function App() {
   }
 
   return (
-    <div className="App" style={{ backgroundColor: color}}>
+    <div className="App" style={{ backgroundColor: 'greenyellow'}}>
       <Square color={color} isDarkText={isDarkText}/>
 
       <Input 
