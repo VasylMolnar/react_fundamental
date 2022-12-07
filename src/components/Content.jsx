@@ -23,6 +23,10 @@ const Content = () => {
     console.log(id);
   };
 
+  const handleDelete = id => {
+    console.log(id);
+  };
+
   return (
     <main>
       <ul>
@@ -40,7 +44,7 @@ const Content = () => {
               {item.item}
             </label>
 
-            <Button />
+            <Button onClick={() => handleDelete(item.id)}>Delete</Button>
           </li>
         ))}
       </ul>
