@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import Button from './Ul/button/button';
+import Button from './Ul/button/Button';
+import Input from './Ul/input/Input';
 const Content = () => {
   const [items, setItems] = useState([
     {
@@ -32,17 +33,13 @@ const Content = () => {
       <ul>
         {items.map(item => (
           <li className="item" key={item.id}>
-            <input
+            <Input
               type="checkbox"
               onChange={() => handleCheck(item.id)}
               checked={item.checked}
-            />
-            <label
-              style={item.checked ? { textDecoration: 'line-through' } : null}
+              item={item}
               onDoubleClick={() => handleCheck(item.id)}
-            >
-              {item.item}
-            </label>
+            />
 
             <Button onClick={() => handleDelete(item.id)}>Delete</Button>
           </li>
