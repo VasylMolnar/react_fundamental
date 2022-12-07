@@ -1,7 +1,10 @@
-git add branch : git branch name delete branch : git branch --delete name or git
-branch -D name open branch : git checkout name
+git add branch : git branch name 
+delete branch : git branch --delete name or git branch -D name 
+open branch : git checkout name
 
-//add branch to git git branch -M main git push -u origin main
+//add branch to git 
+git branch -M main 
+git push -u origin main
 
 # Getting Started with Create React App
 
