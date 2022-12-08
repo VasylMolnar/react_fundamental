@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react_fundamental/static/css/main.6d39bfce.css",
+    "main.js": "/react_fundamental/static/js/main.afd59787.js",
+    "index.html": "/react_fundamental/index.html",
+    "main.6d39bfce.css.map": "/react_fundamental/static/css/main.6d39bfce.css.map",
+    "main.afd59787.js.map": "/react_fundamental/static/js/main.afd59787.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6d39bfce.css",
+    "static/js/main.afd59787.js"
+  ]
+}
