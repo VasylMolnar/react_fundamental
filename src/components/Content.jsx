@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from './Ul/button/Button';
 import Input from './Ul/input/Input';
+
 const Content = () => {
   const [items, setItems] = useState([
     {
@@ -21,30 +22,47 @@ const Content = () => {
   ]);
 
   const handleCheck = id => {
-    console.log(id);
+    const listItems = items.map(item => {
+      if (item.id === id) {
+        return { ...item, checked: !item.checked };
+        //item.checked = !item.checked;
+      }
+
+      return item;
+    });
+
+    setItems(listItems);
+    localStorage.setItem('listItems', JSON.stringify(listItems));
   };
 
   const handleDelete = id => {
-    console.log(id);
+    const listItems = items.filter(item => item.id !== id);
+    document.querySelector('.item').classList.add('item_delete');
+    setItems(listItems);
+    localStorage.setItem('listItems', JSON.stringify(listItems));
   };
 
   return (
     <main>
-      <ul>
-        {items.map(item => (
-          <li className="item" key={item.id}>
-            <Input
-              type="checkbox"
-              onChange={() => handleCheck(item.id)}
-              checked={item.checked}
-              item={item}
-              onDoubleClick={() => handleCheck(item.id)}
-            />
+      {items.length ? (
+        <ul>
+          {items.map(item => (
+            <li className="item" key={item.id}>
+              <Input
+                type="checkbox"
+                onChange={() => handleCheck(item.id)}
+                checked={item.checked}
+                item={item}
+                onDoubleClick={() => handleCheck(item.id)}
+              />
 
-            <Button onClick={() => handleDelete(item.id)}>Delete</Button>
-          </li>
-        ))}
-      </ul>
+              <Button onClick={() => handleDelete(item.id)}>Delete</Button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p style={{ marginTop: '2rem' }}>Your list is empty.</p>
+      )}
     </main>
   );
 };

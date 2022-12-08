@@ -49,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/VasylMolnar/react_fundamental/issues"
   },
-  "homepage": "https://vasylmolnar.github.io/react_fundamental/"
+  "homepage": "https://vasylmolnar.github.io/react_fundamental/",
+  "devDependencies": {
+    "eslint-plugin-react": "^7.31.11"
+  }
 }
