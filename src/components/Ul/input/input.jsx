@@ -1,16 +1,10 @@
 import React from 'react';
 import './index.css';
 
-const Input = ({ onDoubleClick, item, ...props }) => {
+const Input = ({ ...props }) => {
   return (
     <>
       <input {...props} className="input" />
-      <label
-        style={item.checked ? { textDecoration: 'line-through' } : null}
-        onDoubleClick={() => onDoubleClick()}
-      >
-        {item.item}
-      </label>
     </>
   );
 };

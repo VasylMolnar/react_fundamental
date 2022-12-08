@@ -1,0 +1,17 @@
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    margin: 0.25rem 0;
+    background-color: #eee;
+}
+
+.delete {
+    transform: translateX(-110%);
+    transition: transform 550ms linear;
+}
+
+.item:first-child {
+    margin: 0;
+}
