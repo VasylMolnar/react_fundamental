@@ -23,11 +23,11 @@ const AddItem = ({ handleSubmit, newItem, setNewItem }) => {
       <Button
         style={{
           backgroundColor: 'green',
-          disabled: newItem.length ? 'true' : 'false',
+          disabled: newItem ? 'true' : 'false',
         }}
         type="submit"
         aria-label="Add Item"
-        onClick={() => inputRef.current.focus()}
+        //onClick={() => inputRef.current.focus()}
       >
         Add
       </Button>

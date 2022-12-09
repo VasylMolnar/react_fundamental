@@ -1,12 +1,12 @@
-import React from 'react';
+import { forwardRef, React } from 'react';
 import './index.css';
 
-const Input = ({ ...props }) => {
+const Input = forwardRef(({ ...props }, ref) => {
   return (
     <>
-      <input {...props} className="input" />
+      <input ref={ref} {...props} className="input" />
     </>
   );
-};
+});
 
 export default Input;
