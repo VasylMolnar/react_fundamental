@@ -4,12 +4,18 @@ import Button from '../Ul/button/Button';
 import { useRef } from 'react';
 import './index.css';
 
-const AddItem = ({ handleSubmit, newItem, setNewItem }) => {
+const AddItem = ({
+  ButtonName,
+  InputName,
+  handleSubmit,
+  newItem,
+  setNewItem,
+}) => {
   const inputRef = useRef();
 
   return (
     <form className="addForm" onSubmit={handleSubmit}>
-      <label htmlFor="addItem">Add Item</label>
+      <label htmlFor="addItem">{InputName}</label>
       <Input
         style={{ width: '350px', height: '47px' }}
         type="text"
@@ -26,7 +32,7 @@ const AddItem = ({ handleSubmit, newItem, setNewItem }) => {
         aria-label="Add Item"
         onClick={() => inputRef.current.focus()}
       >
-        Add
+        {ButtonName}
       </Button>
     </form>
   );

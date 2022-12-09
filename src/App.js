@@ -9,9 +9,7 @@ function App() {
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem('listItems')) || []
   );
-
   const [search, setSearch] = useState('');
-
   const [newItem, setNewItem] = useState('');
 
   const setAndSaveItems = newItems => {
@@ -54,8 +52,15 @@ function App() {
         handleSubmit={handleSubmit}
         newItem={newItem}
         setNewItem={setNewItem}
+        InputName={'Add Item'}
+        ButtonName={'Add'}
       />
-      <SearchItem search={search} setSearch={setSearch} />
+      <SearchItem
+        search={search}
+        setSearch={setSearch}
+        name={'Search'}
+        placeholderName={'Search Items'}
+      />
       <Content
         items={items.filter(item =>
           item.item.toLowerCase().includes(search.toLowerCase())
