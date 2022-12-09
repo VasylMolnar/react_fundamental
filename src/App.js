@@ -7,12 +7,17 @@ import AddItem from './components/AddItem/AddItem';
 
 function App() {
   const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem('listItems'))
+    JSON.parse(localStorage.getItem('listItems')) || []
   );
 
   const [search, setSearch] = useState('');
 
   const [newItem, setNewItem] = useState('');
+
+  const setAndSaveItems = newItems => {
+    setItems(newItems);
+    localStorage.setItem('listItems', JSON.stringify(newItems));
+  };
 
   const handleCheck = id => {
     const listItems = items.map(item => {
@@ -22,9 +27,7 @@ function App() {
       }
       return item;
     });
-
-    setItems(listItems);
-    localStorage.setItem('listItems', JSON.stringify(listItems));
+    setAndSaveItems(listItems);
   };
 
   const handleDelete = (e, id) => {
@@ -32,19 +35,15 @@ function App() {
     const listItems = items.filter(item => item.id !== id);
 
     setTimeout(() => {
-      setItems(listItems);
+      setAndSaveItems(listItems);
     }, 500);
-    localStorage.setItem('listItems', JSON.stringify(listItems));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     if (!newItem) return;
     const id = items.length ? items[items.length - 1].id + 1 : 1;
-    setItems(el => {
-      return [...el, { id, checked: false, item: newItem }];
-    });
-    localStorage.setItem('listItems', JSON.stringify(items));
+    setAndSaveItems([...items, { id, checked: false, item: newItem }]);
     setNewItem('');
   };
 
@@ -58,7 +57,9 @@ function App() {
       />
       <SearchItem search={search} setSearch={setSearch} />
       <Content
-        items={items}
+        items={items.filter(item =>
+          item.item.toLowerCase().includes(search.toLowerCase())
+        )}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
       />
