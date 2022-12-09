@@ -16,12 +16,7 @@ const ItemList = ({ items, handleCheck, handleDelete }) => {
             style={{ width: '40px', height: '40px' }}
           />
           <Label item={item} onDoubleClick={() => handleCheck(item.id)} />
-          <Button
-            onClick={e => handleDelete(e, item.id)}
-            style={{ backgroundColor: 'red' }}
-          >
-            Delete
-          </Button>
+          <Button onClick={e => handleDelete(e, item.id)}>Delete</Button>
         </li>
       ))}
     </ul>

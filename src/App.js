@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import { useState } from 'react';
 import SearchItem from './components/SearchItem/SearchItem';
 import AddItem from './components/AddItem/AddItem';
+
 function App() {
   const [items, setItems] = useState([
     {
@@ -24,6 +25,8 @@ function App() {
   ]);
 
   const [search, setSearch] = useState('');
+
+  const [newItem, setNewItem] = useState('');
 
   const handleCheck = id => {
     const listItems = items.map(item => {
@@ -50,12 +53,20 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (!newItem) return;
+    const id = items.length ? items.length + 1 : 1;
+    setItems([...items, { id, checked: false, item: newItem }]);
+    localStorage.setItem('listItems', JSON.stringify(items));
   };
 
   return (
     <div className="App">
       <Header />
-      <AddItem handleSubmit={handleSubmit} />
+      <AddItem
+        handleSubmit={handleSubmit}
+        newItem={newItem}
+        setNewItem={setNewItem}
+      />
       <SearchItem search={search} setSearch={setSearch} />
       <Content
         items={items}

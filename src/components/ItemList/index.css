@@ -15,3 +15,7 @@
 .item:first-child {
     margin: 0;
 }
+
+.item button {
+    background-color: rgba(237, 44, 14, 0.981);
+}

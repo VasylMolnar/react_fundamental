@@ -22,3 +22,8 @@
     margin-right: 0.25rem;
     outline: none;
 }
+
+
+.addForm button {
+    background-color: rgba(15, 191, 95, 0.672);
+}

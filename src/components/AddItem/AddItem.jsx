@@ -12,22 +12,19 @@ const AddItem = ({ handleSubmit, newItem, setNewItem }) => {
       <label htmlFor="addItem">Add Item</label>
       <Input
         style={{ width: '350px', height: '47px' }}
+        type="text"
         autoFocus
-        ref={inputRef}
         placeholder="Add Item"
         required
+        ref={inputRef}
         value={newItem}
         onChange={e => setNewItem(e.target.value)}
       />
 
       <Button
-        style={{
-          backgroundColor: 'green',
-          disabled: newItem ? 'true' : 'false',
-        }}
         type="submit"
         aria-label="Add Item"
-        //onClick={() => inputRef.current.focus()}
+        onClick={() => inputRef.current.focus()}
       >
         Add
       </Button>
