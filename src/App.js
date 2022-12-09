@@ -6,23 +6,9 @@ import SearchItem from './components/SearchItem/SearchItem';
 import AddItem from './components/AddItem/AddItem';
 
 function App() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      checked: true,
-      item: 'Coffe',
-    },
-    {
-      id: 2,
-      checked: false,
-      item: 'Tea',
-    },
-    {
-      id: 3,
-      checked: false,
-      item: 'CoccaColla',
-    },
-  ]);
+  const [items, setItems] = useState(
+    JSON.parse(localStorage.getItem('listItems'))
+  );
 
   const [search, setSearch] = useState('');
 
@@ -54,9 +40,12 @@ function App() {
   const handleSubmit = e => {
     e.preventDefault();
     if (!newItem) return;
-    const id = items.length ? items.length + 1 : 1;
-    setItems([...items, { id, checked: false, item: newItem }]);
+    const id = items.length ? items[items.length - 1].id + 1 : 1;
+    setItems(el => {
+      return [...el, { id, checked: false, item: newItem }];
+    });
     localStorage.setItem('listItems', JSON.stringify(items));
+    setNewItem('');
   };
 
   return (
