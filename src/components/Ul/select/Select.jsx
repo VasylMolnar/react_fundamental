@@ -2,10 +2,8 @@ import React from 'react';
 import './index.css';
 
 const Select = ({ filter, setFilter, defaultValue, options }) => {
-  console.log('HI' + filter.sort);
   return (
     <select
-      value={filter}
       onChange={e =>
         setFilter({
           ...filter,
