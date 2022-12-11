@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../Ul/input/Input';
 import './index.css';
-const SearchItem = ({ placeholderName, name, search, setSearch }) => {
+const SearchItem = ({ placeholderName, name, filter, setFilter }) => {
   return (
     <form className="searchForm" onSubmit={e => e.preventDefault()}>
       <label htmlFor="search">{name}</label>
@@ -9,8 +9,8 @@ const SearchItem = ({ placeholderName, name, search, setSearch }) => {
         type="text"
         role="searchbox"
         placeholder={placeholderName}
-        value={search}
-        onChange={e => setSearch(e.target.value)}
+        value={filter.query}
+        onChange={e => setFilter({ ...filter, query: e.target.value })}
         style={{ marginTop: '10px', width: '350px', height: '47px' }}
       />
     </form>

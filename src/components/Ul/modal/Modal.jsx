@@ -3,8 +3,18 @@ import './modal.css';
 
 const Modal = ({ children, modal, setModal }) => {
   return (
-    <div className={`${modal ? 'modalBackground_visible' : 'modalBackground'}`}>
-      <div className="modal">{children}</div>
+    <div
+      className={`${modal ? 'modalBackground_visible' : 'modalBackground'}`}
+      onClick={() => setModal(false)}
+    >
+      <div
+        className="modal"
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

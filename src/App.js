@@ -2,16 +2,16 @@ import Header from './components/Header';
 import Content from './components/Content';
 import Footer from './components/Footer';
 import { useState, useEffect } from 'react';
-import SearchItem from './components/SearchItem/SearchItem';
 import AddItem from './components/AddItem/AddItem';
 import Modal from './components/Ul/modal/Modal';
 import Button from './components/Ul/button/Button';
+import PostFilter from './components/PostFilter/PostFilter';
 
 function App() {
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem('listItems')) || []
   );
-  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState({ sort: '', query: '' });
   const [newItem, setNewItem] = useState('');
   const [modal, setModal] = useState(false);
 
@@ -46,20 +46,14 @@ function App() {
     const id = items.length ? items[items.length - 1].id + 1 : 1;
     setItems([...items, { id, checked: false, item: newItem }]);
     setNewItem('');
+    setModal(false);
   };
-
-  //sort  name
 
   return (
     <div className="App">
       <Header title="Grocery List" />
 
-      <SearchItem
-        search={search}
-        setSearch={setSearch}
-        name={'Search'}
-        placeholderName={'Search Items'}
-      />
+      <PostFilter filter={filter} setFilter={setFilter} />
 
       <Button
         style={{ margin: '10px 0px', width: '150px', height: '55px' }}
@@ -80,7 +74,7 @@ function App() {
 
       <Content
         items={items.filter(item =>
-          item.item.toLowerCase().includes(search.toLowerCase())
+          item.item.toLowerCase().includes(filter.query.toLowerCase())
         )}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
