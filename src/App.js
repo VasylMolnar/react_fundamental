@@ -16,6 +16,10 @@ function App() {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
+    console.log(filter);
+  }, [filter]);
+
+  useEffect(() => {
     localStorage.setItem('listItems', JSON.stringify(items));
   }, [items]);
 
