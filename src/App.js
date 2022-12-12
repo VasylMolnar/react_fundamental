@@ -7,43 +7,57 @@ import Modal from './components/Ul/modal/Modal';
 import Button from './components/Ul/button/Button';
 import PostFilter from './components/PostFilter/PostFilter';
 import { useSort } from './hooks/useSort';
+import fetchItems from './hooks/fetchItems';
 
 function App() {
-  const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem('listItems')) || []
-  );
+  const API_URL = 'http://localhost:4000/items';
+  const [items, setItems] = useState([]);
   const [filter, setFilter] = useState({ sort: '', query: '' }); //sort {id, name}
   const [newItem, setNewItem] = useState('');
   const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem('listItems', JSON.stringify(items));
-  }, [items]);
-
+  const [fetchError, setFetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const sortedAndSearchedPosts = useSort(filter, items);
 
-  /*
-  const sortedPosts = useMemo(() => {
-    if (filter.sort === 'id') {
-      return [...items].sort((a, b) => a[filter.sort] - b[filter.sort]);
-    } else if (filter.sort === 'item') {
-      return [...items].sort((a, b) =>
-        a[filter.sort].localeCompare(b[filter.sort])
-      );
-    } else if (filter.sort === 'checked') {
-      return items.filter(el => el.checked === true);
-    }
+  useEffect(() => {
+    setTimeout(() => {
+      fetchItems(API_URL)
+        .then(items => {
+          setItems(items);
+          setFetchError(null);
+        })
+        .catch(e => {
+          setFetchError(e.message);
+        });
 
-    return items;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter.sort, items]);
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(item =>
-      item.item.toLowerCase().includes(filter.query.toLowerCase())
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter.query, sortedPosts]);*/
+  /*fetchItems 
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL).then(response => {
+          if (!response.ok) {
+            throw new Error('Did not receive expected data');
+          }
+          return response.json();
+        });
+
+        setItems(response);
+        setFetchError(null);
+      } catch (e) {
+        setFetchError(e.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    setTimeout(() => {
+      fetchItems();
+    }, 1000);
+  }, []);*/
 
   const handleCheck = id => {
     // const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
@@ -87,7 +101,6 @@ function App() {
       >
         Open Modal
       </Button>
-
       <Modal modal={modal} setModal={setModal}>
         <AddItem
           handleSubmit={handleSubmit}
@@ -98,11 +111,18 @@ function App() {
         />
       </Modal>
 
-      <Content
-        items={sortedAndSearchedPosts}
-        handleCheck={handleCheck}
-        handleDelete={handleDelete}
-      />
+      <main>
+        {isLoading && <p>Loading Items...</p>}
+        {fetchError && <p style={{ color: 'red' }}>{`Error: ${fetchError}`}</p>}
+        {!isLoading && !fetchError && (
+          <Content
+            items={sortedAndSearchedPosts}
+            handleCheck={handleCheck}
+            handleDelete={handleDelete}
+          />
+        )}
+      </main>
+
       <Footer />
     </div>
   );
