@@ -11,7 +11,7 @@ function App() {
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem('listItems')) || []
   );
-  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const [filter, setFilter] = useState({ sort: '', query: '' }); //sort {id, name}
   const [newItem, setNewItem] = useState('');
   const [modal, setModal] = useState(false);
 
@@ -19,23 +19,27 @@ function App() {
     localStorage.setItem('listItems', JSON.stringify(items));
   }, [items]);
 
-  const sortedPosts = () => {
-    if (filter.sort) {
+  const sortedPosts = useMemo(() => {
+    if (filter.sort === 'id') {
+      return [...items].sort((a, b) => a[filter.sort] - b[filter.sort]);
+    } else if (filter.sort === 'item') {
       return [...items].sort((a, b) =>
         a[filter.sort].localeCompare(b[filter.sort])
       );
+    } else if (filter.sort === 'checked') {
+      return items.filter(el => el.checked === true);
     }
+
     return items;
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter.sort, items]);
 
   const sortedAndSearchedPosts = useMemo(() => {
-    console.log(sortedPosts);
-    const sorted = sortedPosts();
-    return sorted.filter(item =>
+    return sortedPosts.filter(item =>
       item.item.toLowerCase().includes(filter.query.toLowerCase())
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, items]);
+  }, [filter.query, sortedPosts]);
 
   const handleCheck = id => {
     // const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);

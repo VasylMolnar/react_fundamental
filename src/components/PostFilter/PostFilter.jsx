@@ -15,10 +15,11 @@ const PostFilter = ({ filter, setFilter }) => {
       <Select
         filter={filter}
         setFilter={setFilter}
-        defaultValue="Sort"
+        defaultValue="Sort list"
         options={[
-          { value: 'id', name: 'ID' },
-          { value: 'body', name: 'Name' },
+          { value: 'id', name: 'id' },
+          { value: 'item', name: 'item' },
+          { value: 'checked', name: 'checked' },
           { value: 'default', name: '...' },
         ]}
       />
