@@ -1,11 +1,12 @@
 import Header from './components/Header';
 import Content from './components/Content';
 import Footer from './components/Footer';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import AddItem from './components/AddItem/AddItem';
 import Modal from './components/Ul/modal/Modal';
 import Button from './components/Ul/button/Button';
 import PostFilter from './components/PostFilter/PostFilter';
+import { useSort } from './hooks/useSort';
 
 function App() {
   const [items, setItems] = useState(
@@ -19,6 +20,9 @@ function App() {
     localStorage.setItem('listItems', JSON.stringify(items));
   }, [items]);
 
+  const sortedAndSearchedPosts = useSort(filter, items);
+
+  /*
   const sortedPosts = useMemo(() => {
     if (filter.sort === 'id') {
       return [...items].sort((a, b) => a[filter.sort] - b[filter.sort]);
@@ -39,7 +43,7 @@ function App() {
       item.item.toLowerCase().includes(filter.query.toLowerCase())
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter.query, sortedPosts]);
+  }, [filter.query, sortedPosts]);*/
 
   const handleCheck = id => {
     // const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
