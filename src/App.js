@@ -7,18 +7,22 @@ import Modal from './components/Ul/modal/Modal';
 import Button from './components/Ul/button/Button';
 import PostFilter from './components/PostFilter/PostFilter';
 import { useSort } from './hooks/useSort';
-import fetchItems from './hooks/fetchItems';
+import { useFetch } from './hooks/useFetch';
+//import fetchItems from './hooks/fetchItems';
 
 function App() {
   const API_URL = 'http://localhost:4000/items';
-  const [items, setItems] = useState([]);
   const [filter, setFilter] = useState({ sort: '', query: '' }); //sort {id, name}
   const [newItem, setNewItem] = useState('');
   const [modal, setModal] = useState(false);
-  const [fetchError, setFetchError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const { isLoading, fetchError, items } = useFetch(API_URL);
   const sortedAndSearchedPosts = useSort(filter, items);
 
+  //const [items, setItems] = useState([]);
+  //const [fetchError, setFetchError] = useState(null);
+  //const [isLoading, setIsLoading] = useState(true);
+  /*fetchItems in file fetchItems function
   useEffect(() => {
     setTimeout(() => {
       fetchItems(API_URL)
@@ -32,9 +36,9 @@ function App() {
 
       setIsLoading(false);
     }, 1000);
-  }, []);
+  }, []);*/
 
-  /*fetchItems 
+  /*fetchItems in here function
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -68,7 +72,7 @@ function App() {
       }
       return item;
     });
-    setItems(listItems);
+    //setItems(listItems);
   };
 
   const handleDelete = (e, id) => {
@@ -76,7 +80,7 @@ function App() {
     const listItems = items.filter(item => item.id !== id);
 
     setTimeout(() => {
-      setItems(listItems);
+      // setItems(listItems);
     }, 500);
   };
 
@@ -84,7 +88,7 @@ function App() {
     e.preventDefault();
     if (!newItem) return;
     const id = items.length ? items[items.length - 1].id + 1 : 1;
-    setItems([...items, { id, checked: false, item: newItem }]);
+    //setItems([...items, { id, checked: false, item: newItem }]);
     setNewItem('');
     setModal(false);
   };
