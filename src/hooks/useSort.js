@@ -24,6 +24,7 @@ export const useSort = (filter, items) => {
     return sortedPosts.filter(item =>
       item.item.toLowerCase().includes(filter.query.toLowerCase())
     );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter.query, sortedPosts]);
 

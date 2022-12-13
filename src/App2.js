@@ -7,30 +7,69 @@ import Modal from './components/Ul/modal/Modal';
 import Button from './components/Ul/button/Button';
 import PostFilter from './components/PostFilter/PostFilter';
 import { useSort } from './hooks/useSort';
-import { useFetch } from './hooks/useFetch';
+import fetchItems from './hooks/fetchItems';
 
 function App() {
-  const API_URL = 'http://localhost:4000/items/';
-  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const API_URL = 'http://localhost:4000/items';
+  const [filter, setFilter] = useState({ sort: '', query: '' }); //sort {id, name}
   const [newItem, setNewItem] = useState('');
   const [modal, setModal] = useState(false);
-  const [options, seOptions] = useState({
-    headers: { 'Content-Type': 'application/json' },
-  });
-
-  const { isLoading, fetchError, items } = useFetch(`${API_URL}`, options);
+  const [items, setItems] = useState([]);
+  const [fetchError, setFetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const sortedAndSearchedPosts = useSort(filter, items);
 
+  //fetchItems in file fetchItems function
+  useEffect(() => {
+    setTimeout(() => {
+      fetchItems(API_URL)
+        .then(items => {
+          setItems(items);
+          setFetchError(null);
+        })
+        .catch(e => {
+          setFetchError(e.message);
+        });
+
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  /*fetchItems in here function
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL).then(response => {
+          if (!response.ok) {
+            throw new Error('Did not receive expected data');
+          }
+          return response.json();
+        });
+
+        setItems(response);
+        setFetchError(null);
+      } catch (e) {
+        setFetchError(e.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    setTimeout(() => {
+      fetchItems();
+    }, 1000);
+  }, []);*/
+
   const handleCheck = id => {
-    // const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
+    //const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
     const listItems = items.map(item => {
       if (item.id === id) {
         return { ...item, checked: !item.checked };
-        //item.checked = !item.checked;
+        item.checked = !item.checked;
       }
       return item;
     });
-    //setItems(listItems);
+    setItems(listItems);
   };
 
   const handleDelete = (e, id) => {
@@ -38,26 +77,15 @@ function App() {
     const listItems = items.filter(item => item.id !== id);
 
     setTimeout(() => {
-      // setItems(listItems);
+      setItems(listItems);
     }, 500);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (!newItem) return;
     const id = items.length ? items[items.length - 1].id + 1 : 1;
-    const myNewItem = { id, checked: false, item: newItem };
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(myNewItem),
-    };
-
-    seOptions(options);
-
+    setItems([...items, { id, checked: false, item: newItem }]);
     setNewItem('');
     setModal(false);
   };
