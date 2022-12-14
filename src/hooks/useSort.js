@@ -18,14 +18,13 @@ export const useSortedPosts = (sort, items) => {
 };
 
 export const useSort = (filter, items) => {
-  //console.log('HI');
+  //console.log('useSort'); code optimization debounce (AddItem.jsx, SearchItem.jsx)
   const sortedPosts = useSortedPosts(filter.sort, items);
 
   const sortedAndSearchedPosts = useMemo(() => {
     return sortedPosts.filter(item =>
       item.item.toLowerCase().includes(filter.query.toLowerCase())
     );
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter.query, sortedPosts]);
 
