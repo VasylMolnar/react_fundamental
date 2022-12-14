@@ -56,8 +56,8 @@ function App() {
       body: JSON.stringify(myNewItem),
     };
 
+    console.log('handleSubmit');
     seOptions(options);
-
     setNewItem('');
     setModal(false);
   };

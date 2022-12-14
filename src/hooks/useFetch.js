@@ -3,13 +3,15 @@ const DEFAULT_OPTIONS = {
   headers: { 'Content-Type': 'application/json' },
 };
 
-export const useFetch = (API_URL, options = {}) => {
+export const useFetch = (API_URL, options = {}, depends = []) => {
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  //console.log(options.body);
+
   useEffect(() => {
-    console.log('HI');
+    console.log('HI useFetch');
     const fetchItems = async () => {
       try {
         const response = await fetch(API_URL, {
@@ -34,7 +36,7 @@ export const useFetch = (API_URL, options = {}) => {
     setTimeout(() => {
       fetchItems();
     }, 1000);
-  });
+  }, depends);
 
   return { isLoading, fetchError, items };
 };

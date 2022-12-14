@@ -18,6 +18,7 @@ export const useSortedPosts = (sort, items) => {
 };
 
 export const useSort = (filter, items) => {
+  //console.log('HI');
   const sortedPosts = useSortedPosts(filter.sort, items);
 
   const sortedAndSearchedPosts = useMemo(() => {

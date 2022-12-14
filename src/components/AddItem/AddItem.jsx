@@ -3,7 +3,7 @@ import Input from '../Ul/input/Input';
 import Button from '../Ul/button/Button';
 import { useRef } from 'react';
 import './index.css';
-
+import debounce from 'lodash.debounce';
 const AddItem = ({
   ButtonName,
   InputName,
@@ -23,8 +23,15 @@ const AddItem = ({
         placeholder="Add Item"
         required
         ref={inputRef}
-        value={newItem}
-        onChange={e => setNewItem(e.target.value)}
+        //before optimization
+        //value={newItem}//used (value) when we are not using debounce
+        //we use debounce for delay input text (code optimization)
+        //onChange={e => setNewItem(e.target.value)}
+
+        //after optimization
+        onChange={debounce(e => {
+          setNewItem(e.target.value);
+        }, 300)}
       />
 
       <Button
