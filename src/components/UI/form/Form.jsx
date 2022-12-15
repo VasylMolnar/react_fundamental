@@ -19,21 +19,30 @@ const Form = ({ setName }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: '15px',
+        height: '70px',
+        backgroundColor: 'rgb(231 231 231)',
       }}
     >
       <Button
-        onClick={e => changedBtn(e, 'user')}
+        onClick={e => changedBtn(e, 'users')}
         type="button"
         className="button active"
+        style={{ width: '280px', height: '40px' }}
       >
         Users
       </Button>
-
-      <Button onClick={e => changedBtn(e, 'posts')} type="button">
+      <Button
+        onClick={e => changedBtn(e, 'posts')}
+        type="button"
+        style={{ width: '280px', height: '40px' }}
+      >
         Posts
       </Button>
-      <Button onClick={e => changedBtn(e, 'comments')} type="button">
+      <Button
+        onClick={e => changedBtn(e, 'comments')}
+        type="button"
+        style={{ width: '280px', height: '40px' }}
+      >
         Comments
       </Button>
     </form>

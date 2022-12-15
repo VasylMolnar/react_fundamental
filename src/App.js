@@ -2,20 +2,42 @@ import { React, useState } from 'react';
 import Form from './components/UI/form/Form';
 import List from './components/List';
 import Table from './components/UI/table/Table';
-import Button from './components/UI/button/Button';
 import { useFetch } from './hooks/useFetch';
+import ListBtn from './components/ListBtn/ListBtn';
 
 function App() {
   const API_URL = 'https://jsonplaceholder.typicode.com/'; //todos/1
-
-  const { isLoading, fetchError, items } = useFetch(API_URL);
-  const [name, setName] = useState('');
+  const [name, setName] = useState('users');
+  const { isLoading, fetchError, items } = useFetch(API_URL, name);
 
   return (
-    <>
+    <div className="app">
       <Form setName={setName} />
-      <Table />
-    </>
+
+      <main>
+        {isLoading && (
+          <p
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '30px',
+            }}
+          >
+            Loading Items...
+          </p>
+        )}
+        {fetchError && <p style={{ color: 'red' }}>{`Error: ${fetchError}`}</p>}
+
+        {!isLoading && !fetchError && (
+          <>
+            <Table items={items} />
+            {/*<List items={items} />*/}
+            <ListBtn itemsLength={items.length} />
+          </>
+        )}
+      </main>
+    </div>
   );
 }
 

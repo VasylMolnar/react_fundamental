@@ -12,7 +12,7 @@ export const useFetch = (API_URL, dependency = []) => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${API_URL}${dependency}`, {
           ...DEFAULT_OPTIONS,
         }).then(response => {
           if (!response.ok) {
@@ -29,10 +29,12 @@ export const useFetch = (API_URL, dependency = []) => {
         setIsLoading(false);
       }
     };
+    fetchItems();
 
+    /*
     setTimeout(() => {
       fetchItems();
-    }, 500);
+    }, 500);*/
   }, [dependency]);
 
   return { items, fetchError, isLoading };
