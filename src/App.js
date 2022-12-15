@@ -50,7 +50,7 @@ function App() {
     setTimeout(() => {
       apiRequest(`${API_URL}/${id}`, options);
       seOptions(options);
-    }, 300);
+    }, 500);
   };
 
   const handleSubmit = async e => {
