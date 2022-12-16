@@ -1,15 +1,15 @@
-export const getPageCount = (totalCount, limit) => {
+const getPageCount = (totalCount, limit) => {
   return Math.ceil(totalCount / limit);
 };
 
-const getPagesArray = lengthBtn => {
-  let result = [];
+export const getPagesArray = (totalCount, limit) => {
+  const n = getPageCount(totalCount, limit);
 
-  for (let i = 1; i < lengthBtn + 1; i++) {
+  const result = [];
+
+  for (let i = 1; i < n + 1; i++) {
     result.push(i);
   }
 
   return result;
 };
-
-export default getPagesArray;

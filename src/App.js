@@ -8,7 +8,7 @@ import ListBtn from './components/ListBtn/ListBtn';
 function App() {
   const [name, setName] = useState('users');
   const [page, setPage] = useState(1);
-  const { isLoading, fetchError, items } = useFetch(name, page);
+  const { isLoading, fetchError, items, totalCount } = useFetch(name, page);
 
   return (
     <div className="app">
@@ -33,7 +33,7 @@ function App() {
           <>
             <Table items={items} />
             {/*<List items={items} />*/}
-            <ListBtn itemsLength={items} />
+            <ListBtn totalCount={totalCount} limit={10} setPage={setPage} />
           </>
         )}
       </main>

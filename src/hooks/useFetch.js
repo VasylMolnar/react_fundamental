@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const DEFAULT_OPTIONS = {
   headers: { 'Content-Type': 'application/json' },
@@ -11,21 +12,18 @@ export const useFetch = (name = [], page) => {
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
+    console.log('useFetch');
     const fetchItems = async () => {
       try {
-        const response = await fetch(`${API_URL}${filter}`, {
+        const response = await axios.get(`${API_URL}${filter}`, {
           ...DEFAULT_OPTIONS,
-        }).then(response => {
-          if (!response.ok) {
-            throw new Error('Did not receive expected data');
-          }
-          console.log(response.hits.length);
-          return response.json();
         });
-
-        setItems(response);
+        //console.log(response.headers['x-total-count']);
+        setTotalCount(response.headers['x-total-count']);
+        setItems(response.data);
         setFetchError(null);
       } catch (e) {
         setFetchError(e.message);
@@ -41,5 +39,5 @@ export const useFetch = (name = [], page) => {
     }, 500);*/
   }, [name]);
 
-  return { items, fetchError, isLoading };
+  return { items, fetchError, isLoading, totalCount };
 };
