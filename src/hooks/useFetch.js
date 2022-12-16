@@ -8,7 +8,6 @@ export const useFetch = (name = [], page) => {
   //https://jsonplaceholder.typicode.com/users/?page=1&_limit=2
   const API_URL = 'https://jsonplaceholder.typicode.com/'; //todos/1
   const filter = `${name}/?${page}&_limit=10`;
-
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
