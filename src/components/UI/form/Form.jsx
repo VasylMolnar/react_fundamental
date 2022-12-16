@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../button/Button';
 
-const Form = ({ setName }) => {
+const Form = ({ setName, setPage }) => {
   const changedBtn = (e, name) => {
     const activeBtn = document.querySelector('.active');
 
@@ -10,6 +10,7 @@ const Form = ({ setName }) => {
     }
     e.target.classList.toggle('active');
     setName(name);
+    setPage(1);
   };
 
   return (

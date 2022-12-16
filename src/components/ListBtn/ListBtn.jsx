@@ -1,17 +1,21 @@
-import React from 'react';
+import { React } from 'react';
 import Button from '../UI/button/Button';
-import { getPagesArray } from '../../utils/pages';
+import { usePagesArray } from '../../hooks/usePagesArray';
 import './index.css';
-
-const ListBtn = ({ totalCount, limit, setPage }) => {
-  const btnLength = getPagesArray(totalCount, limit);
+const ListBtn = ({ totalCount, limit, setPage, page }) => {
+  const btnLength = usePagesArray(totalCount, limit, page);
 
   return (
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={e => e.preventDefault()} className="list-btn">
       {btnLength.length === 1 ? (
-        <p>Hello</p>
+        <></>
       ) : (
-        btnLength.map(item => <Button key={item}> {item} </Button>)
+        btnLength.map(item => (
+          <Button key={item} onClick={() => setPage(item)}>
+            {' '}
+            {item}{' '}
+          </Button>
+        ))
       )}
     </form>
   );

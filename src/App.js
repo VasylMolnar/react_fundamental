@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="app">
-      <Form setName={setName} />
+      <Form setName={setName} setPage={setPage} />
 
       <main>
         {isLoading && (
@@ -33,7 +33,12 @@ function App() {
           <>
             <Table items={items} />
             {/*<List items={items} />*/}
-            <ListBtn totalCount={totalCount} limit={10} setPage={setPage} />
+            <ListBtn
+              totalCount={totalCount}
+              limit={10}
+              setPage={setPage}
+              page={page}
+            />
           </>
         )}
       </main>
