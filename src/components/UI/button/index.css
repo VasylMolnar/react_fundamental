@@ -1,17 +1,16 @@
-.button {
+button {
     border: 1px solid rgb(0, 32, 128);
-    background-color: antiquewhite;
     border-radius: 5px;
     margin-right: 10px;
     cursor: pointer;
 }
 
-.active {
-    background-color: rgb(77, 146, 7);
-}
-
-.button:hover {
+button:hover {
     background-color: rgba(24, 81, 188, 0.668);
     color: #fff;
     transition: background-color 250ms linear;
+}
+
+.active {
+    background-color: rgb(77, 146, 7);
 }

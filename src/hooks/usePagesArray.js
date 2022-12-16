@@ -9,7 +9,7 @@ export const usePagesArray = (totalCount, limit, page) => {
   //console.log('usePagesArray');
 
   const pagesArray = useMemo(() => {
-    console.log('pagesArray');
+    //console.log('pagesArray');
 
     const result = [];
     const pagesCount = getPageCount(totalCount, limit);
@@ -21,9 +21,11 @@ export const usePagesArray = (totalCount, limit, page) => {
     return result;
   }, [totalCount, limit]);
 
+  /*
   if (pagesArray.length > 1) {
-    console.log(document.querySelector('.list-btn').target);
+    console.log(document.querySelector('.list-btn'));
   }
+*/
 
   useEffect(() => {
     //console.log(page, pagesArray.length);

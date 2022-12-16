@@ -15,7 +15,7 @@ export const useFetch = (name = [], page) => {
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    console.log('useFetch');
+    //console.log('useFetch');
     const fetchItems = async () => {
       try {
         const response = await axios.get(`${API_URL}${filter}`);
