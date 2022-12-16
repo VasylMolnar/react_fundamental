@@ -6,9 +6,11 @@ import './index.css';
 const ListBtn = ({ itemsLength }) => {
   return (
     <form onSubmit={e => e.preventDefault()}>
-      {buttonList(itemsLength).map(item => (
-        <Button key={item}>{item}</Button>
-      ))}
+      {buttonList(itemsLength) === 1 ? (
+        <p>Hello</p>
+      ) : (
+        buttonList(itemsLength).map(item => <Button key={item}>{item}</Button>)
+      )}
     </form>
   );
 };

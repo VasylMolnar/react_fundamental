@@ -6,9 +6,9 @@ import { useFetch } from './hooks/useFetch';
 import ListBtn from './components/ListBtn/ListBtn';
 
 function App() {
-  const API_URL = 'https://jsonplaceholder.typicode.com/'; //todos/1
   const [name, setName] = useState('users');
-  const { isLoading, fetchError, items } = useFetch(API_URL, name);
+  const [page, setPage] = useState(1);
+  const { isLoading, fetchError, items } = useFetch(name, page);
 
   return (
     <div className="app">
@@ -33,7 +33,7 @@ function App() {
           <>
             <Table items={items} />
             {/*<List items={items} />*/}
-            <ListBtn itemsLength={items.length} />
+            <ListBtn itemsLength={items} />
           </>
         )}
       </main>
