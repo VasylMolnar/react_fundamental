@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React } from 'react';
 import Button from '../UI/button/Button';
 import { usePagesArray } from '../../hooks/usePagesArray';
 import changedBtn from '../../utils/activeBtn';

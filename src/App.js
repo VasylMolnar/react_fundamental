@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import Form from './components/UI/form/Form';
-import List from './components/List';
+//import List from './components/List';
 import Table from './components/UI/table/Table';
 import { useFetch } from './hooks/useFetch';
 import ListBtn from './components/ListBtn/ListBtn';
