@@ -21,12 +21,6 @@ export const usePagesArray = (totalCount, limit, page) => {
     return result;
   }, [totalCount, limit]);
 
-  /*
-  if (pagesArray.length > 1) {
-    console.log(document.querySelector('.list-btn'));
-  }
-*/
-
   useEffect(() => {
     //console.log(page, pagesArray.length);
 

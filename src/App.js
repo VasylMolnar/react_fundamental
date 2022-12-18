@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="app">
-      <Form setName={setName} setPage={setPage} />
+      <Form setName={setName} setPage={setPage} name={name} />
 
       <main>
         {isLoading && (

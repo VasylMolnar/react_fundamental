@@ -16,6 +16,17 @@ const Form = ({ setName, setPage }) => {
   };*/
   //  onClick={e => changedBtn(e, () => setPage(item))}
 
+  const active = () => {
+    const activeBtn = document.querySelector('.list-btn .active');
+    const firstBtn = document.querySelector('.list-btn button');
+
+    if (activeBtn) {
+      activeBtn.classList.remove('active');
+    }
+
+    firstBtn.classList.add('active');
+  };
+
   return (
     <form
       onSubmit={e => e.preventDefault()}
@@ -52,6 +63,10 @@ const Form = ({ setName, setPage }) => {
             () => {
               setName('posts');
               setPage(1);
+
+              setTimeout(() => {
+                active();
+              }, 100);
             },
             '.form'
           )
@@ -71,6 +86,9 @@ const Form = ({ setName, setPage }) => {
             () => {
               setName('comments');
               setPage(1);
+              setTimeout(() => {
+                active();
+              }, 100);
             },
             '.form'
           )

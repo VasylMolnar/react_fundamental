@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import Button from '../UI/button/Button';
 import { usePagesArray } from '../../hooks/usePagesArray';
 import changedBtn from '../../utils/activeBtn';
@@ -9,7 +9,7 @@ const ListBtn = ({ totalCount, limit, setPage, page }) => {
 
   return (
     <form onSubmit={e => e.preventDefault()} className="list-btn">
-      {btnLength.length === 1 ? (
+      {btnLength.length === 1 || btnLength.length === page ? (
         <></>
       ) : (
         btnLength.map(item => (
