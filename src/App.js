@@ -1,10 +1,14 @@
-import { React, useState } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AppRouter from './router/AppRouter';
 
 function App() {
   return (
-    <>
-      <h1>hello</h1>
-    </>
+    <div className="App">
+      <Header />
+      <AppRouter />
+      <Footer />
+    </div>
   );
 }
 
