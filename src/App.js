@@ -5,7 +5,7 @@ import AppRouter from './router/AppRouter';
 function App() {
   return (
     <div className="App">
-      <Header />
+      <Header title="React JS Blog" />
       <AppRouter />
       <Footer />
     </div>
