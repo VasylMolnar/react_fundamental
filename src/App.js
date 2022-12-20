@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import Header from './components/Header';
-import SearchForm from './components/Ul/form/searchForm';
+import SearchForm from './components/Ul/form/SearchForm';
 import Footer from './components/Footer';
 import AppRouter from './router/AppRouter';
 
