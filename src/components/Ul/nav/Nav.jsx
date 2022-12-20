@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 
 const Nav = () => {
   return (
-    <nav>
-      <ul>
-        <li>
+    <nav className="nav">
+      <ul className="nav_ul">
+        <li className="nav_li">
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li className="nav_li">
           <Link to="/post">Post</Link>
         </li>
-        <li>
+        <li className="nav_li">
           <Link to="/about">About</Link>
         </li>
       </ul>
