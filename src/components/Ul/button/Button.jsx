@@ -1,10 +1,10 @@
 import React from 'react';
-
-const Button = React.forwardRef(({ children, ref, ...props }) => {
+import './index.css';
+const Button = ({ children, ...props }) => {
   return (
-    <button ref={ref} {...props}>
+    <button {...props} className="button">
       {children}
     </button>
   );
-});
+};
 export default Button;

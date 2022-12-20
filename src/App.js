@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import Header from './components/Header';
-import SearchForm from './components/Ul/form/SearchForm';
+import Search from './components/Search';
 import Footer from './components/Footer';
 import AppRouter from './router/AppRouter';
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Header title="React JS Blog" />
-      <SearchForm searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <AppRouter />
       <Footer />
     </div>
