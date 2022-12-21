@@ -10,12 +10,18 @@ import { useFetch } from '../hooks/fetchCRUD/useFetch';
 
 const AppRouter = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
   const { isLoading, fetchError, items } = useFetch(searchValue);
 
   useEffect(() => {
-    const filteredResults = items.filter(item => {
-      return item.body.toLowerCase().in;
-    });
+    console.log('hi');
+    const filteredResults = items.filter(
+      post =>
+        post.body.toLowerCase().includes(searchValue.toLowerCase()) ||
+        post.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setSearchResults(filteredResults);
   }, [items, searchValue]);
 
   return (
@@ -24,7 +30,7 @@ const AppRouter = () => {
 
       <Switch>
         <Route exact path="/">
-          <Home searchValue={searchValue} />
+          <Home searchResults={searchResults} />
         </Route>
 
         <Route exact path="/post">
