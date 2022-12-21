@@ -1,0 +1,14 @@
+.missing {
+  color: $redColor;
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 1px 3px 5px rgb(9, 198, 255);
+
+  a {
+    color: green;
+    text-decoration: none;
+    border: 1px solid gray;
+    background-color: white;
+  }
+}

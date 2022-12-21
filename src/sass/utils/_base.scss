@@ -23,3 +23,17 @@ body {
   margin: 0 auto;
   padding: 0px 15px;
 }
+
+.home,
+.newPost,
+.postPage,
+.about,
+.missing {
+  flex-grow: 1;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

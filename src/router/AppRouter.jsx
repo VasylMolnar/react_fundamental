@@ -16,10 +16,9 @@ const AppRouter = () => {
 
   return (
     <>
-      <Search setSearchValue={setSearchValue} />
-
       <Switch>
         <Route exact path="/">
+          <Search setSearchValue={setSearchValue} />
           <Home post={searchResults} />
         </Route>
 
