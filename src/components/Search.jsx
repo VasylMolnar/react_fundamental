@@ -3,8 +3,9 @@ import Form from './Ul/form/Form';
 import Input from './Ul/input/Input';
 import Button from './Ul/button/Button';
 import { useRef } from 'react';
+import debounce from 'lodash.debounce';
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = ({ setSearchValue }) => {
   const inputRef = useRef();
 
   return (
@@ -14,8 +15,13 @@ const Search = ({ searchValue, setSearchValue }) => {
           <Input
             type="text"
             placeholder="Search..."
-            value={searchValue}
-            onChange={e => setSearchValue(e.target.value)}
+            //value={searchValue}
+            //onChange={e => setSearchValue(e.target.value)}
+
+            //optimization
+            onChange={debounce(e => {
+              setSearchValue(e.target.value);
+            }, 300)}
             ref={inputRef}
           />
 

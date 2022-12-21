@@ -2,9 +2,9 @@ import React from 'react';
 
 const PostPage = () => {
   return (
-    <div>
+    <main>
       <h1>postpage</h1>
-    </div>
+    </main>
   );
 };
 

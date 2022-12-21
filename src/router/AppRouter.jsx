@@ -7,30 +7,20 @@ import NewPost from '../pages/NewPost';
 import PostPage from '../pages/PostPage';
 import Search from '../components/Search';
 import { useFetch } from '../hooks/fetchCRUD/useFetch';
+import { useSort } from '../hooks/useSort';
 
 const AppRouter = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-
   const { isLoading, fetchError, items } = useFetch(searchValue);
-
-  useEffect(() => {
-    console.log('hi');
-    const filteredResults = items.filter(
-      post =>
-        post.body.toLowerCase().includes(searchValue.toLowerCase()) ||
-        post.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setSearchResults(filteredResults);
-  }, [items, searchValue]);
+  const searchResults = useSort(items, searchValue);
 
   return (
     <>
-      <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Search setSearchValue={setSearchValue} />
 
       <Switch>
         <Route exact path="/">
-          <Home searchResults={searchResults} />
+          <Home post={searchResults} />
         </Route>
 
         <Route exact path="/post">
