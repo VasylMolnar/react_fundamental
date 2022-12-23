@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export const useFetch = () => {
-  const API_URL = 'http://localhost:1234/posts/';
+export const useFetch = (API_URL, options) => {
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +18,9 @@ export const useFetch = () => {
         setIsLoading(false);
       }
     };
-    fetchItems();
-  }, []);
+
+    setTimeout(() => fetchItems(), 1300);
+  }, [API_URL, options]);
 
   return { isLoading, fetchError, items };
 };

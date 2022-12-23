@@ -7,13 +7,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
+    "date-fns": "^2.29.3",
     "gh-pages": "^4.0.0",
     "json-server": "^0.17.1",
     "lodash": "^4.17.21",
     "notiflix": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.0",
+    "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
     "sass": "^1.57.0",
     "web-vitals": "^2.1.4"
@@ -45,7 +46,6 @@
       "last 1 safari version"
     ]
   },
-  "main": ".eslintrc.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VasylMolnar/react_fundamental.git"
@@ -56,5 +56,6 @@
   "bugs": {
     "url": "https://github.com/VasylMolnar/react_fundamental/issues"
   },
-  "homepage": "https://vasylmolnar.github.io/react_fundamental/"
+  "homepage": "https://vasylmolnar.github.io/react_fundamental/",
+  "main": ".eslintrc.js"
 }

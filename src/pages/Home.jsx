@@ -1,15 +1,21 @@
 import Post from '../components/Post';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
-const Home = ({ post }) => {
+const Home = ({ post, isLoading, fetchError }) => {
   return (
     <main className="home">
       <section className="section">
         <div className="container">
-          {post.length ? (
-            <Post post={post} />
-          ) : (
-            <p className="home_error">No posts to display.</p>
-          )}
+          {isLoading &&
+            (Loading.hourglass(' Loading Items...'), Loading.hourglass())}
+
+          {fetchError &&
+            (Report.failure(`Error: ${fetchError}`, 'Okay'), Loading.remove())}
+
+          {!isLoading &&
+            !fetchError &&
+            (Loading.remove(), (<Post post={post} />))}
         </div>
       </section>
     </main>
@@ -17,3 +23,4 @@ const Home = ({ post }) => {
 };
 
 export default Home;
+////        {item.body.length <= 350 ? item.body : `${item.body.slice(0, 350)}...`}

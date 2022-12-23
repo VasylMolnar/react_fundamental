@@ -1,25 +1,24 @@
 import { useState, React } from 'react';
-import Form from '../components/Ul/form/Form';
-import debounce from 'lodash.debounce';
 import { useRef } from 'react';
+import debounce from 'lodash.debounce';
+import Form from '../components/Ul/form/Form';
 import Input from '../components/Ul/input/Input';
 import Button from '../components/Ul/button/Button';
 import Textarea from '../components/Ul/textarea/Textarea';
 
-const NewPost = () => {
+const NewPost = ({ handleSubmit }) => {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
   const inputRef = useRef();
-
-  const handleSubmit = e => {
-    e.preventDefault();
-  };
 
   return (
     <main className="newPost">
       <section className="section">
         <div className="container">
-          <Form title="New Post" onSubmit={e => handleSubmit(e)}>
+          <Form
+            title="New Post"
+            onSubmit={e => handleSubmit(e, postTitle, postBody)}
+          >
             <label>
               Title:
               <Input
