@@ -3,6 +3,10 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const Home = ({ post, isLoading, fetchError }) => {
+  Report.init({
+    width: '700px',
+  });
+
   return (
     <main className="home">
       <section className="section">
