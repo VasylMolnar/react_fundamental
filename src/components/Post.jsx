@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
   if (!post.length) {
@@ -6,13 +6,17 @@ const Post = ({ post }) => {
   }
 
   return post.map(item => (
-    <article className="post" key={item.id}>
-      <h1>{item.title}</h1>
-      <p className="post_date">{item.datetime}</p>
-      <p className="post_body">
-        {item.body.length <= 350 ? item.body : `${item.body.slice(0, 350)}...`}
-      </p>
-    </article>
+    <Link to={`/post/${item.id}`} key={item.id}>
+      <article className="post">
+        <h1>{item.title}</h1>
+        <p className="post_date">{item.datetime}</p>
+        <p className="post_body">
+          {item.body.length <= 350
+            ? item.body
+            : `${item.body.slice(0, 350)}...`}
+        </p>
+      </article>
+    </Link>
   ));
 };
 

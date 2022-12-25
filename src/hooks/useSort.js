@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react';
 
 export const useSort = (items, searchValue) => {
-  console.log('useSort');
+  //console.log('useSort');
+
   return useMemo(() => {
-    console.log('useMemo');
+    //console.log('useMemo');
 
     const filteredResults = items.filter(
       post =>

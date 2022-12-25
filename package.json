@@ -57,5 +57,8 @@
     "url": "https://github.com/VasylMolnar/react_fundamental/issues"
   },
   "homepage": "https://vasylmolnar.github.io/react_fundamental/",
-  "main": ".eslintrc.js"
+  "main": ".eslintrc.js",
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
 }

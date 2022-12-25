@@ -1,5 +1,5 @@
-import { useState, React, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { useState, React } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Missing from '../pages/Missing';
@@ -7,22 +7,21 @@ import NewPost from '../pages/NewPost';
 import PostPage from '../pages/PostPage';
 import Search from '../components/Search';
 import { useFetch } from '../hooks/fetchCRUD/useFetch';
-import { useSort } from '../hooks/useSort';
-import { useHistory } from 'react-router-dom';
-import { format } from 'date-fns';
 import { apiRequest } from '../hooks/fetchCRUD/apiRequest';
-import { is } from 'date-fns/locale';
+import { useSort } from '../hooks/useSort';
+import { format } from 'date-fns';
+import { Notify, Report } from 'notiflix';
 
 const AppRouter = () => {
-  const API_URL = 'http://localhost:1234/post/';
+  const API_URL = 'http://localhost:1234/posts/';
   const [options, setOptions] = useState({
     headers: { 'Content-Type': 'application/json' },
   });
+  const history = useHistory();
 
   const [searchValue, setSearchValue] = useState('');
   const { isLoading, fetchError, items } = useFetch(API_URL, options);
   const searchResults = useSort(items, searchValue);
-  const history = useHistory();
 
   const handleSubmit = async (e, postTitle, postBody) => {
     e.preventDefault();
@@ -40,9 +39,15 @@ const AppRouter = () => {
     };
 
     await apiRequest(API_URL, options);
+    //Notify.success('Items added successfully');
+    Report.success('Success', 'Item successfully added');
     setOptions(options);
     history.push('/');
     //document.location.reload();
+  };
+
+  const handleDelete = () => {
+    console.log('handleDelete');
   };
 
   return (
@@ -61,7 +66,7 @@ const AppRouter = () => {
       </Route>
 
       <Route path="/post/:id">
-        <PostPage />
+        <PostPage posts={items} handleDelete={handleDelete} />
       </Route>
 
       <Route path="/about" component={About} />

@@ -34,6 +34,7 @@ const NewPost = ({ handleSubmit }) => {
             <label>
               Post:
               <Textarea
+                required
                 onChange={debounce(e => {
                   setPostBody(e.target.value);
                 }, 300)}

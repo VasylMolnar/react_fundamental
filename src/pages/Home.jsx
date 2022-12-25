@@ -4,7 +4,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const Home = ({ post, isLoading, fetchError }) => {
   Report.init({
-    width: '700px',
+    width: '500px',
   });
 
   return (
@@ -13,10 +13,8 @@ const Home = ({ post, isLoading, fetchError }) => {
         <div className="container">
           {isLoading &&
             (Loading.hourglass(' Loading Items...'), Loading.hourglass())}
-
           {fetchError &&
-            (Report.failure(`Error: ${fetchError}`, 'Okay'), Loading.remove())}
-
+            (Report.failure('Error', `${fetchError}`), Loading.remove())}
           {!isLoading &&
             !fetchError &&
             (Loading.remove(), (<Post post={post} />))}
@@ -27,4 +25,3 @@ const Home = ({ post, isLoading, fetchError }) => {
 };
 
 export default Home;
-////        {item.body.length <= 350 ? item.body : `${item.body.slice(0, 350)}...`}

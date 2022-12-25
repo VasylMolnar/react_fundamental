@@ -1,9 +1,7 @@
-.home {
+.postPage {
   .post {
     margin: 30px 0px;
     color: $texColor;
-    border-bottom: 1px groove green;
-    cursor: pointer;
   }
 
   .post_date {
@@ -32,5 +30,10 @@
 
   a {
     text-decoration: none;
+  }
+
+  .button {
+    margin-top: 50px;
+    width: 200px;
   }
 }
