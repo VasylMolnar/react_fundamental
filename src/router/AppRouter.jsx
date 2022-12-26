@@ -78,7 +78,7 @@ const AppRouter = () => {
       </Route>
 
       <Route path="/edit/:id">
-        <EditPost />
+        <EditPost posts={items} />
       </Route>
 
       <Route path="/about" component={About} />
