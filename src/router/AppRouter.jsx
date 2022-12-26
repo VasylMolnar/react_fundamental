@@ -5,6 +5,7 @@ import About from '../pages/About';
 import Missing from '../pages/Missing';
 import NewPost from '../pages/NewPost';
 import PostPage from '../pages/PostPage';
+import EditPost from '../pages/EditPost';
 import Search from '../components/Search';
 import { useFetch } from '../hooks/fetchCRUD/useFetch';
 import { apiRequest } from '../hooks/fetchCRUD/apiRequest';
@@ -46,8 +47,15 @@ const AppRouter = () => {
     //document.location.reload();
   };
 
-  const handleDelete = () => {
-    console.log('handleDelete');
+  const handleDelete = async id => {
+    const options = {
+      method: 'DELETE',
+    };
+
+    await apiRequest(`${API_URL}${id}`, options);
+    setOptions(options);
+    Report.success('Success', 'Item successfully DELETE');
+    history.push('/');
   };
 
   return (
@@ -67,6 +75,10 @@ const AppRouter = () => {
 
       <Route path="/post/:id">
         <PostPage posts={items} handleDelete={handleDelete} />
+      </Route>
+
+      <Route path="/edit/:id">
+        <EditPost />
       </Route>
 
       <Route path="/about" component={About} />
