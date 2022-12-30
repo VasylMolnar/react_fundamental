@@ -58,6 +58,26 @@ const AppRouter = () => {
     history.push('/');
   };
 
+  const handleEdit = async (e, postTitle, postBody, id) => {
+    e.preventDefault();
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const updatedPost = { id, title: postTitle, datetime, body: postBody };
+
+    const options = {
+      method: 'PATCH', //PUT , PATCH updated
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedPost),
+    };
+
+    await apiRequest(`${API_URL}${id}`, options);
+    //Notify.success('Items added successfully');
+    Report.success('Success', 'Item successfully updated');
+    setOptions(options);
+    history.push('/');
+  };
+
   return (
     <Switch>
       <Route exact path="/">
@@ -78,7 +98,7 @@ const AppRouter = () => {
       </Route>
 
       <Route path="/edit/:id">
-        <EditPost posts={items} />
+        <EditPost posts={items} handleEdit={handleEdit} />
       </Route>
 
       <Route path="/about" component={About} />

@@ -30,8 +30,15 @@
   }
 
   button {
-    margin-top: 50px;
+    margin: 50px 10px 0px 0px;
     width: 200px;
-    background-color: $redColor;
+  }
+
+  #delete:hover {
+    background-color: red;
+  }
+
+  #edit:hover {
+    background-color: yellowgreen;
   }
 }
