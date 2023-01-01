@@ -1,3 +1,8 @@
-npm install react-router-dom@5
+npm i react-router-dom
 
-Switch and useHistory
+1. Routes(Switch) , useNavigate(useHistory) ...
+2. add Routes and element to index.js (component (element={<App />} ) )
+3. add Routes and element to AppRouter and add index in home component
+
+(index.js and AppRouter)
+

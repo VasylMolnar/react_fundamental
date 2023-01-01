@@ -31,7 +31,7 @@ const PostPage = ({ posts, handleDelete }) => {
               Delete Post
             </Button>
 
-            <Link to={`/edit/${post.id}`}>
+            <Link to={`/post/edit/${post.id}`}>
               <Button id="edit">Edit Post</Button>
             </Link>
           </article>

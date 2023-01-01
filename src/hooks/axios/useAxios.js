@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../api/post';
 
-export const useFetch = (API_URL, options) => {
+export const useAxios = (url, options) => {
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log(options);
     const fetchItems = async () => {
       try {
-        const response = await axios.get(`${API_URL}`);
+        const response = await api[options.method](
+          url,
+          options.body ? JSON.parse(options.body) : null,
+          options.headers
+        );
         setItems(response.data);
         setFetchError(null);
       } catch (e) {
@@ -20,7 +25,8 @@ export const useFetch = (API_URL, options) => {
     };
 
     setTimeout(() => fetchItems(), 1300);
-  }, [API_URL, options]);
+  }, [url, options]);
 
-  return { isLoading, fetchError, items };
+  return { items, fetchError, isLoading };
 };
+// axios[method](url, JSON.parse(headers), JSON.parse(body))

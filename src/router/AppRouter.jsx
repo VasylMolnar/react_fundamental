@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Missing from '../pages/Missing';
@@ -7,23 +7,26 @@ import NewPost from '../pages/NewPost';
 import PostPage from '../pages/PostPage';
 import EditPost from '../pages/EditPost';
 import Search from '../components/Search';
-import { useFetch } from '../hooks/fetchCRUD/useFetch';
-import { apiRequest } from '../hooks/fetchCRUD/apiRequest';
 import { useSort } from '../hooks/useSort';
 import { format } from 'date-fns';
 import { Notify, Report } from 'notiflix';
+import { useAxios } from '../hooks/axios/useAxios';
 
 const AppRouter = () => {
-  const API_URL = 'http://localhost:1234/posts/';
+  const [url, setUrl] = useState('/posts');
   const [options, setOptions] = useState({
-    headers: { 'Content-Type': 'application/json' },
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
-  const history = useHistory();
+  const navigate = useNavigate();
 
+  const { isLoading, fetchError, items } = useAxios(url, options);
   const [searchValue, setSearchValue] = useState('');
-  const { isLoading, fetchError, items } = useFetch(API_URL, options);
   const searchResults = useSort(items, searchValue);
 
+  console.log(items);
   const handleSubmit = async (e, postTitle, postBody) => {
     e.preventDefault();
 
@@ -32,18 +35,18 @@ const AppRouter = () => {
     const newPost = { id, title: postTitle, datetime, body: postBody };
 
     const options = {
-      method: 'POST',
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newPost),
     };
 
-    await apiRequest(API_URL, options);
-    //Notify.success('Items added successfully');
-    Report.success('Success', 'Item successfully added');
     setOptions(options);
-    history.push('/');
+    setUrl('/posts');
+    Report.success('Success', 'Item successfully added');
+    navigate('/');
+    //Notify.success('Items added successfully');
     //document.location.reload();
   };
 
@@ -52,10 +55,10 @@ const AppRouter = () => {
       method: 'DELETE',
     };
 
-    await apiRequest(`${API_URL}${id}`, options);
-    setOptions(options);
+    //await apiRequest(`${API_URL}${id}`, options);
+    //setOptions(options);
     Report.success('Success', 'Item successfully DELETE');
-    history.push('/');
+    navigate('/');
   };
 
   const handleEdit = async (e, postTitle, postBody, id) => {
@@ -71,39 +74,45 @@ const AppRouter = () => {
       body: JSON.stringify(updatedPost),
     };
 
-    await apiRequest(`${API_URL}${id}`, options);
+    //await apiRequest(`${API_URL}${id}`, options);
     //Notify.success('Items added successfully');
     Report.success('Success', 'Item successfully updated');
-    setOptions(options);
-    history.push('/');
+    //setOptions(options);
+    navigate('/');
   };
 
   return (
-    <Switch>
-      <Route exact path="/">
-        <Search setSearchValue={setSearchValue} />
-        <Home
-          post={searchResults}
-          isLoading={isLoading}
-          fetchError={fetchError}
+    <Routes>
+      <Route
+        index // or path="/"
+        element={
+          <>
+            <Search setSearchValue={setSearchValue} />
+            <Home
+              post={searchResults}
+              isLoading={isLoading}
+              fetchError={fetchError}
+            />
+          </>
+        }
+      />
+
+      <Route path="post">
+        <Route index element={<NewPost handleSubmit={handleSubmit} />} />
+        <Route
+          path=":id"
+          element={<PostPage posts={items} handleDelete={handleDelete} />}
+        />
+
+        <Route
+          path="edit/:id"
+          element={<EditPost posts={items} handleEdit={handleEdit} />}
         />
       </Route>
 
-      <Route exact path="/post">
-        <NewPost handleSubmit={handleSubmit} />
-      </Route>
-
-      <Route path="/post/:id">
-        <PostPage posts={items} handleDelete={handleDelete} />
-      </Route>
-
-      <Route path="/edit/:id">
-        <EditPost posts={items} handleEdit={handleEdit} />
-      </Route>
-
-      <Route path="/about" component={About} />
-      <Route path="*" component={Missing} />
-    </Switch>
+      <Route path="about" element={<About />} />
+      <Route path="*" element={<Missing />} />
+    </Routes>
   );
 };
 
