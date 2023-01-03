@@ -11,7 +11,7 @@ export const useAxios = (options, setOptions) => {
       //console.log(options.method);
       try {
         const response = await api[options.method](
-          localStorage.getItem('url') || '/posts',
+          options.url,
           options.body ? JSON.parse(options.body) : null,
           options.headers
         );

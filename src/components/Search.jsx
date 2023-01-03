@@ -45,6 +45,7 @@ const Search = ({ setSearchValue, setOptions, options }) => {
             <Button
               onClick={() => {
                 setOptions({ ...options, url: '/posts' });
+                localStorage.setItem('url', '/posts');
                 setTimeout(() => {
                   Loading.dots(' Loading Items...');
                 }, 300);
@@ -56,6 +57,7 @@ const Search = ({ setSearchValue, setOptions, options }) => {
             <Button
               onClick={() => {
                 setOptions({ ...options, url: '/comments' });
+                localStorage.setItem('url', '/comments');
                 setTimeout(() => {
                   Loading.dots(' Loading Items...');
                 }, 300);

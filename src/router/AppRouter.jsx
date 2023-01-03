@@ -1,5 +1,6 @@
 import { useState, React } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Missing from '../pages/Missing';
@@ -14,13 +15,13 @@ import { useAxios } from '../hooks/axios/useAxios';
 
 const AppRouter = () => {
   const [options, setOptions] = useState({
+    url: '/posts',
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
     },
   });
   const navigate = useNavigate();
-  console.log(options);
   const { isLoading, fetchError, items } = useAxios(options, setOptions);
   const [searchValue, setSearchValue] = useState('');
   const searchResults = useSort(items, searchValue);
@@ -33,6 +34,7 @@ const AppRouter = () => {
     const newPost = { id, title: postTitle, datetime, body: postBody };
 
     const option = {
+      url: `${localStorage.getItem('url') || '/posts'}`,
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -78,41 +80,44 @@ const AppRouter = () => {
   };
 
   return (
-    <Routes>
-      <Route
-        index // or path="/"
-        element={
-          <>
-            <Search
-              setSearchValue={setSearchValue}
-              setOptions={setOptions}
-              options={options}
-            />
-            <Home
-              post={searchResults}
-              isLoading={isLoading}
-              fetchError={fetchError}
-            />
-          </>
-        }
-      />
-
-      <Route path="post">
-        <Route index element={<NewPost handleSubmit={handleSubmit} />} />
+    <>
+      <Header title="React JS Blog" />
+      <Routes>
         <Route
-          path=":id"
-          element={<PostPage posts={items} handleDelete={handleDelete} />}
+          index // or path="/"
+          element={
+            <>
+              <Search
+                setSearchValue={setSearchValue}
+                setOptions={setOptions}
+                options={options}
+              />
+              <Home
+                post={searchResults}
+                isLoading={isLoading}
+                fetchError={fetchError}
+              />
+            </>
+          }
         />
 
-        <Route
-          path="edit/:id"
-          element={<EditPost posts={items} handleEdit={handleEdit} />}
-        />
-      </Route>
+        <Route path="posts">
+          <Route index element={<NewPost handleSubmit={handleSubmit} />} />
+          <Route
+            path=":id"
+            element={<PostPage posts={items} handleDelete={handleDelete} />}
+          />
 
-      <Route path="about" element={<About />} />
-      <Route path="*" element={<Missing />} />
-    </Routes>
+          <Route
+            path="edit/:id"
+            element={<EditPost posts={items} handleEdit={handleEdit} />}
+          />
+        </Route>
+
+        <Route path="about" element={<About />} />
+        <Route path="*" element={<Missing />} />
+      </Routes>
+    </>
   );
 };
 
