@@ -4,8 +4,9 @@ import Input from './Ul/input/Input';
 import Button from './Ul/button/Button';
 import { useRef } from 'react';
 import debounce from 'lodash.debounce';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
-const Search = ({ setSearchValue }) => {
+const Search = ({ setSearchValue, setOptions, options }) => {
   const inputRef = useRef();
 
   return (
@@ -32,6 +33,37 @@ const Search = ({ setSearchValue }) => {
           >
             Search
           </Button>
+          <br />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '20px',
+            }}
+          >
+            <Button
+              onClick={() => {
+                setOptions({ ...options, url: '/posts' });
+                setTimeout(() => {
+                  Loading.dots(' Loading Items...');
+                }, 300);
+              }}
+              style={{ marginRight: '30px' }}
+            >
+              Posts
+            </Button>
+            <Button
+              onClick={() => {
+                setOptions({ ...options, url: '/comments' });
+                setTimeout(() => {
+                  Loading.dots(' Loading Items...');
+                }, 300);
+              }}
+            >
+              Comments
+            </Button>
+          </div>
         </Form>
       </div>
     </section>

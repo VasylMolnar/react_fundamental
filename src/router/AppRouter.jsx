@@ -13,7 +13,6 @@ import { Notify, Report } from 'notiflix';
 import { useAxios } from '../hooks/axios/useAxios';
 
 const AppRouter = () => {
-  const [url, setUrl] = useState('/posts');
   const [options, setOptions] = useState({
     method: 'get',
     headers: {
@@ -21,20 +20,19 @@ const AppRouter = () => {
     },
   });
   const navigate = useNavigate();
-
-  const { isLoading, fetchError, items } = useAxios(url, options);
+  console.log(options);
+  const { isLoading, fetchError, items } = useAxios(options, setOptions);
   const [searchValue, setSearchValue] = useState('');
   const searchResults = useSort(items, searchValue);
 
-  console.log(items);
-  const handleSubmit = async (e, postTitle, postBody) => {
+  const handleSubmit = (e, postTitle, postBody) => {
     e.preventDefault();
 
     const id = items.length ? items[items.length - 1].id + 1 : 1;
     const datetime = format(new Date(), 'MMMM dd, yyyy pp');
     const newPost = { id, title: postTitle, datetime, body: postBody };
 
-    const options = {
+    const option = {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -42,21 +40,19 @@ const AppRouter = () => {
       body: JSON.stringify(newPost),
     };
 
-    setOptions(options);
-    setUrl('/posts');
+    setOptions(option);
     Report.success('Success', 'Item successfully added');
     navigate('/');
     //Notify.success('Items added successfully');
     //document.location.reload();
   };
 
-  const handleDelete = async id => {
-    const options = {
-      method: 'DELETE',
-    };
+  const handleDelete = id => {
+    setOptions({
+      url: `/posts/${id}`,
+      method: 'delete',
+    });
 
-    //await apiRequest(`${API_URL}${id}`, options);
-    //setOptions(options);
     Report.success('Success', 'Item successfully DELETE');
     navigate('/');
   };
@@ -87,7 +83,11 @@ const AppRouter = () => {
         index // or path="/"
         element={
           <>
-            <Search setSearchValue={setSearchValue} />
+            <Search
+              setSearchValue={setSearchValue}
+              setOptions={setOptions}
+              options={options}
+            />
             <Home
               post={searchResults}
               isLoading={isLoading}

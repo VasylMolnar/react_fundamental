@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/post';
 
-export const useAxios = (url, options) => {
+export const useAxios = (options, setOptions) => {
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log(options);
     const fetchItems = async () => {
+      //console.log(options.method);
       try {
         const response = await api[options.method](
-          url,
+          localStorage.getItem('url') || '/posts',
           options.body ? JSON.parse(options.body) : null,
           options.headers
         );
-        setItems(response.data);
-        setFetchError(null);
+
+        if (options.method === 'get') {
+          setItems(response.data);
+          setFetchError(null);
+        }
       } catch (e) {
         setFetchError(e.message);
       } finally {
@@ -24,8 +27,14 @@ export const useAxios = (url, options) => {
       }
     };
 
-    setTimeout(() => fetchItems(), 1300);
-  }, [url, options]);
+    setTimeout(() => {
+      fetchItems();
+
+      if (options.method !== 'get') {
+        setOptions({ ...options, method: 'get', url: `${options.url}` });
+      }
+    }, 1300);
+  }, [options]);
 
   return { items, fetchError, isLoading };
 };

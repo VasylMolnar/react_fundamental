@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
 
 export const useSort = (items, searchValue) => {
-  console.log('useSort');
+  //console.log('useSort');
 
   return useMemo(() => {
-    console.log('useMemo');
-    console.log(items);
+    //console.log('useMemo');
+    //console.log(items);
     const filteredResults = items.filter(
       post =>
         post.body.toLowerCase().includes(searchValue.toLowerCase()) ||
