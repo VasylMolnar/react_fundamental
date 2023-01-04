@@ -8,7 +8,7 @@ export const useAxios = (options, setOptions) => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      //console.log(options.method);
+      //console.log(options);
       try {
         const response = await api[options.method](
           options.url,
@@ -31,7 +31,11 @@ export const useAxios = (options, setOptions) => {
       fetchItems();
 
       if (options.method !== 'get') {
-        setOptions({ ...options, method: 'get', url: `${options.url}` });
+        setOptions({
+          ...options,
+          method: 'get',
+          url: `${options.url}`.split('/')[1],
+        });
       }
     }, 1300);
   }, [options]);

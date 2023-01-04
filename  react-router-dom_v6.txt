@@ -2,7 +2,7 @@ npm i react-router-dom
 
 1. Routes(Switch) , useNavigate(useHistory) ...
 2. add Routes and element to index.js (component (element={<App />} ) )
-3. add Routes and element to AppRouter and add index in home component
+3. add Routes and element to AppRouter and add index ( or path="/") in home component
 
 (index.js and AppRouter)
 

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 
 const Contents = ({ post }) => {
+  const btnName =
+    sessionStorage.getItem('url') === '/comments' ? 'Comment' : 'Post';
+
   if (!post.length) {
-    return <p className="home_error">No posts to display.</p>;
+    return <p className="home_error">No {btnName} to display.</p>;
   }
 
   return post.map(item => (

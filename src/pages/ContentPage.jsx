@@ -6,10 +6,13 @@ const ContentPage = ({ posts, handleDelete }) => {
   const { id } = useParams();
   const post = posts.find(post => post.id.toString() === id);
 
+  const btnName =
+    sessionStorage.getItem('url') === '/comments' ? 'Comment' : 'Post';
+
   if (!post) {
     return (
       <div className="postPage_error">
-        <h2>Post Not Found</h2>
+        <h2>{btnName} Not Found</h2>
         <p>Well, that's disappointing.</p>
         <p>
           <Link to="/">Visit Our Homepage</Link>
@@ -17,9 +20,6 @@ const ContentPage = ({ posts, handleDelete }) => {
       </div>
     );
   }
-
-  const btnName =
-    sessionStorage.getItem('url') === '/comments' ? 'Comment' : 'Post';
 
   return (
     <main className="postPage">

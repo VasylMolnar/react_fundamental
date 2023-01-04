@@ -1,4 +1,4 @@
-import { useState, React, useEffect } from 'react';
+import { useState, React } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Home from '../pages/Home';
@@ -50,36 +50,34 @@ const AppRouter = () => {
   };
 
   const handleDelete = id => {
-    setOptions({
-      //url: `/posts/${id}`,
+    const options = {
       url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-
+    };
+    setOptions(options);
     Report.success('Success', 'Item successfully DELETE');
     navigate('/');
   };
 
-  const handleEdit = async (e, postTitle, postBody, id) => {
+  const handleEdit = (e, postTitle, postBody, id) => {
     e.preventDefault();
     const datetime = format(new Date(), 'MMMM dd, yyyy pp');
     const updatedPost = { id, title: postTitle, datetime, body: postBody };
 
     const options = {
-      method: 'PATCH', //PUT , PATCH updated
+      url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
+      method: 'patch', //PUT , PATCH updated
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedPost),
     };
 
-    //await apiRequest(`${API_URL}${id}`, options);
-    //Notify.success('Items added successfully');
+    setOptions(options);
     Report.success('Success', 'Item successfully updated');
-    //setOptions(options);
     navigate('/');
   };
 
