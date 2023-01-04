@@ -1,4 +1,4 @@
-import Post from '../components/Post';
+import Contents from '../components/Contents';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 
@@ -17,7 +17,7 @@ const Home = ({ post, isLoading, fetchError }) => {
             (Report.failure('Error', `${fetchError}`), Loading.remove())}
           {!isLoading &&
             !fetchError &&
-            (Loading.remove(), (<Post post={post} />))}
+            (Loading.remove(), (<Contents post={post} />))}
         </div>
       </section>
     </main>

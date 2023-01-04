@@ -1,12 +1,6 @@
 {
   "posts": [
     {
-      "id": 6,
-      "title": "123",
-      "datetime": "December 30, 2022 7:25:00 PM",
-      "body": "123"
-    },
-    {
       "id": 7,
       "title": "test",
       "datetime": "January 03, 2023 4:14:28 PM",
@@ -14,34 +8,16 @@
     },
     {
       "id": 8,
-      "title": "1132lashd0182uo",
-      "datetime": "January 03, 2023 4:22:25 PM",
-      "body": "asdasdas12312"
-    },
-    {
-      "id": 2,
-      "title": "ajksdh",
-      "datetime": "January 03, 2023 4:22:49 PM",
-      "body": "123"
-    },
-    {
-      "id": 3,
-      "title": "hello",
-      "datetime": "January 03, 2023 6:38:29 PM",
-      "body": "123"
+      "title": "hello123",
+      "datetime": "January 04, 2023 9:58:58 AM",
+      "body": "hello123"
     }
   ],
   "comments": [
     {
-      "id": 1,
-      "title": "comments1",
-      "datetime": "December 30, 2022 7:25:00 PM",
-      "body": "hi"
-    },
-    {
       "id": 2,
-      "title": "hello123",
-      "datetime": "January 03, 2023 6:39:01 PM",
+      "title": "hello",
+      "datetime": "January 04, 2023 10:04:07 AM",
       "body": "hello123"
     }
   ]

@@ -1,12 +1,12 @@
-import { useState, React } from 'react';
+import { useState, React, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Missing from '../pages/Missing';
-import NewPost from '../pages/NewPost';
-import PostPage from '../pages/PostPage';
-import EditPost from '../pages/EditPost';
+import ContentPage from '../pages/ContentPage';
+import NewContent from '../pages/NewContent';
+import EditContent from '../pages/EditContent';
 import Search from '../components/Search';
 import { useSort } from '../hooks/useSort';
 import { format } from 'date-fns';
@@ -15,7 +15,7 @@ import { useAxios } from '../hooks/axios/useAxios';
 
 const AppRouter = () => {
   const [options, setOptions] = useState({
-    url: '/posts',
+    url: sessionStorage.getItem('url') || '/posts', //or  useEffect(() => { sessionStorage.setItem('url', '/posts');}, []);
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const AppRouter = () => {
     const newPost = { id, title: postTitle, datetime, body: postBody };
 
     const option = {
-      url: `${localStorage.getItem('url') || '/posts'}`,
+      url: sessionStorage.getItem('url') || '/posts',
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -51,8 +51,12 @@ const AppRouter = () => {
 
   const handleDelete = id => {
     setOptions({
-      url: `/posts/${id}`,
+      //url: `/posts/${id}`,
+      url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
       method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     Report.success('Success', 'Item successfully DELETE');
@@ -101,16 +105,16 @@ const AppRouter = () => {
           }
         />
 
-        <Route path="posts">
-          <Route index element={<NewPost handleSubmit={handleSubmit} />} />
+        <Route path="contents">
+          <Route index element={<NewContent handleSubmit={handleSubmit} />} />
           <Route
             path=":id"
-            element={<PostPage posts={items} handleDelete={handleDelete} />}
+            element={<ContentPage posts={items} handleDelete={handleDelete} />}
           />
 
           <Route
             path="edit/:id"
-            element={<EditPost posts={items} handleEdit={handleEdit} />}
+            element={<EditContent posts={items} handleEdit={handleEdit} />}
           />
         </Route>
 

@@ -10,8 +10,10 @@ const Nav = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="nav_li">
-          <Link to={`${localStorage.getItem('url') || '/posts'}`}>
-            {localStorage.getItem('url') === '/comments' ? 'Comments' : 'Post'}
+          <Link to="/contents">
+            {sessionStorage.getItem('url') === '/comments'
+              ? 'Comments'
+              : 'Post'}
           </Link>
         </li>
         <li className="nav_li">

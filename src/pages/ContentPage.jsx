@@ -2,7 +2,7 @@ import { React } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Button from '../components/Ul/button/Button';
 
-const PostPage = ({ posts, handleDelete }) => {
+const ContentPage = ({ posts, handleDelete }) => {
   const { id } = useParams();
   const post = posts.find(post => post.id.toString() === id);
 
@@ -18,6 +18,9 @@ const PostPage = ({ posts, handleDelete }) => {
     );
   }
 
+  const btnName =
+    sessionStorage.getItem('url') === '/comments' ? 'Comment' : 'Post';
+
   return (
     <main className="postPage">
       <section className="section">
@@ -28,11 +31,11 @@ const PostPage = ({ posts, handleDelete }) => {
             <p className="post_body">{post.body}</p>
 
             <Button id="delete" onClick={() => handleDelete(post.id)}>
-              Delete Post
+              Delete {btnName}
             </Button>
 
-            <Link to={`/post/edit/${post.id}`}>
-              <Button id="edit">Edit Post</Button>
+            <Link to={`/contents/edit/${post.id}`}>
+              <Button id="edit">Edit {btnName}</Button>
             </Link>
           </article>
         </div>
@@ -77,4 +80,4 @@ const PostPage = ({ posts, handleDelete }) => {
     </main>
   ));*/
 };
-export default PostPage;
+export default ContentPage;

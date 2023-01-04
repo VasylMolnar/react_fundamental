@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const Post = ({ post }) => {
+const Contents = ({ post }) => {
   if (!post.length) {
     return <p className="home_error">No posts to display.</p>;
   }
 
   return post.map(item => (
-    <Link to={`/post/${item.id}`} key={item.id}>
+    <Link to={`/contents/${item.id}`} key={item.id}>
       <article className="post">
         <h1>{item.title}</h1>
         <p className="post_date">{item.datetime}</p>
@@ -20,4 +20,4 @@ const Post = ({ post }) => {
   ));
 };
 
-export default Post;
+export default Contents;

@@ -1,48 +1,37 @@
-import { useRef, useState } from 'react';
+import { useState, React } from 'react';
+import { useRef } from 'react';
 import debounce from 'lodash.debounce';
-import { useParams, Link } from 'react-router-dom';
 import Form from '../components/Ul/form/Form';
 import Input from '../components/Ul/input/Input';
-import Textarea from '../components/Ul/textarea/Textarea';
 import Button from '../components/Ul/button/Button';
+import Textarea from '../components/Ul/textarea/Textarea';
 
-const EditPost = ({ posts, handleEdit }) => {
-  const inputRef = useRef();
-  const { id } = useParams();
-  const post = posts.find(post => post.id.toString() === id);
-
+const NewContent = ({ handleSubmit }) => {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
+  const inputRef = useRef();
 
-  if (!post) {
-    return (
-      <div className="postPage_error">
-        <h2>Post Not Found</h2>
-        <p>Well, that's disappointing.</p>
-        <p>
-          <Link to="/">Visit Our Homepage</Link>
-        </p>
-      </div>
-    );
-  }
+  const btnName =
+    sessionStorage.getItem('url') === '/comments' ? 'Comment' : 'Post';
 
   return (
     <main className="newPost">
       <section className="section">
         <div className="container">
           <Form
-            title="Edit Post"
-            onSubmit={e => handleEdit(e, postTitle, postBody, id)}
+            title={`New ${btnName}`}
+            onSubmit={e => handleSubmit(e, postTitle, postBody)}
           >
             <label>
               Title:
               <Input
+                type="text"
                 required
                 onChange={debounce(e => {
                   setPostTitle(e.target.value);
                 }, 300)}
                 ref={inputRef}
-              />
+              ></Input>
             </label>
 
             <label>
@@ -57,11 +46,13 @@ const EditPost = ({ posts, handleEdit }) => {
 
             <Button
               type="submit"
+              aria-label="Add Item"
               onClick={() => {
+                //handleSubmit();
                 inputRef.current.focus();
               }}
             >
-              Edit Post
+              Submit
             </Button>
           </Form>
         </div>
@@ -70,4 +61,4 @@ const EditPost = ({ posts, handleEdit }) => {
   );
 };
 
-export default EditPost;
+export default NewContent;
