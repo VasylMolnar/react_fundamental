@@ -19,6 +19,10 @@ const Nav = () => {
         <li className="nav_li">
           <Link to="/about">About</Link>
         </li>
+
+        <li className="nav_li">
+          <Link to="/windowSize">WindowSize</Link>
+        </li>
       </ul>
     </nav>
   );

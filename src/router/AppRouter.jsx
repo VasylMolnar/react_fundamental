@@ -12,6 +12,7 @@ import { useSort } from '../hooks/useSort';
 import { format } from 'date-fns';
 import { Notify, Report } from 'notiflix';
 import { useAxios } from '../hooks/axios/useAxios';
+import WindowSize from '../pages/WindowSize';
 
 const AppRouter = () => {
   const [options, setOptions] = useState({
@@ -116,6 +117,7 @@ const AppRouter = () => {
           />
         </Route>
 
+        <Route path="windowSize" element={<WindowSize />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<Missing />} />
       </Routes>

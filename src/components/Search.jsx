@@ -5,6 +5,7 @@ import Button from './Ul/button/Button';
 import { useRef } from 'react';
 import debounce from 'lodash.debounce';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import WindowSize from '../pages/WindowSize';
 
 const Search = ({ setSearchValue, setOptions, options }) => {
   const inputRef = useRef();
