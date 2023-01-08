@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react';
-import debounce from 'lodash.debounce';
+import { useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Form from '../components/Ul/form/Form';
 import Input from '../components/Ul/input/Input';
 import Textarea from '../components/Ul/textarea/Textarea';
 import Button from '../components/Ul/button/Button';
+import DataContext from '../context/DataContext';
 
-const EditContent = ({ posts, handleEdit }) => {
+const EditContent = () => {
+  const { items, useRef, debounce, format, setOptions, Report, navigate } =
+    useContext(DataContext);
   const inputRef = useRef();
   const { id } = useParams();
-  const post = posts.find(post => post.id.toString() === id);
+  const post = items.find(post => post.id.toString() === id);
 
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
@@ -28,6 +30,25 @@ const EditContent = ({ posts, handleEdit }) => {
       </div>
     );
   }
+
+  const handleEdit = (e, postTitle, postBody, id) => {
+    e.preventDefault();
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const updatedPost = { id, title: postTitle, datetime, body: postBody };
+
+    const options = {
+      url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
+      method: 'patch', //PUT , PATCH updated
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedPost),
+    };
+
+    setOptions(options);
+    Report.success('Success', 'Item successfully updated');
+    navigate('/');
+  };
 
   return (
     <main className="newPost">

@@ -1,8 +1,12 @@
 import Contents from '../components/Contents';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import DataContext from '../context/DataContext';
+import { useContext } from 'react';
 
-const Home = ({ post, isLoading, fetchError }) => {
+const Home = () => {
+  const { searchResults, isLoading, fetchError } = useContext(DataContext);
+
   Report.init({
     width: '500px',
   });
@@ -17,7 +21,7 @@ const Home = ({ post, isLoading, fetchError }) => {
             (Report.failure('Error', `${fetchError}`), Loading.remove())}
           {!isLoading &&
             !fetchError &&
-            (Loading.remove(), (<Contents post={post} />))}
+            (Loading.remove(), (<Contents post={searchResults} />))}
         </div>
       </section>
     </main>

@@ -1,27 +1,32 @@
 import React from 'react';
 import './index.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = ({ loading }) => {
   return (
     <nav className="nav">
       <ul className="nav_ul">
         <li className="nav_li">
-          <Link to="/">Home</Link>
+          <NavLink to="/" className="a">
+            Home
+          </NavLink>
+          {/* or Lint to 
+              NavLink have className="active" (activeBtn React router) 
+          */}
         </li>
         <li className="nav_li">
-          <Link to="/contents">
+          <NavLink to="/contents">
             {sessionStorage.getItem('url') === '/comments'
               ? 'Comments'
               : 'Post'}
-          </Link>
+          </NavLink>
         </li>
         <li className="nav_li">
-          <Link to="/about">About</Link>
+          <NavLink to="/about">About</NavLink>
         </li>
 
         <li className="nav_li">
-          <Link to="/windowSize">WindowSize</Link>
+          <NavLink to="/windowSize">WindowSize</NavLink>
         </li>
       </ul>
     </nav>

@@ -5,6 +5,10 @@
     margin-top: 40px
 }
 
+.active {
+    background-color: red;
+}
+
 .nav_li {
     display: flex;
     align-items: center;

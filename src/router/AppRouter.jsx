@@ -1,5 +1,4 @@
-import { useState, React } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Home from '../pages/Home';
 import About from '../pages/About';
@@ -8,119 +7,56 @@ import ContentPage from '../pages/ContentPage';
 import NewContent from '../pages/NewContent';
 import EditContent from '../pages/EditContent';
 import Search from '../components/Search';
-import { useSort } from '../hooks/useSort';
-import { format } from 'date-fns';
-import { Notify, Report } from 'notiflix';
-import { useAxios } from '../hooks/axios/useAxios';
 import WindowSize from '../pages/WindowSize';
+import { DataProvider } from '../context/DataContext';
+import MissingHeader from '../components/MissingHeader';
 
 const AppRouter = () => {
-  const [options, setOptions] = useState({
-    url: sessionStorage.getItem('url') || '/posts', //or  useEffect(() => { sessionStorage.setItem('url', '/posts');}, []);
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const navigate = useNavigate();
-  const { isLoading, fetchError, items } = useAxios(options, setOptions);
-  const [searchValue, setSearchValue] = useState('');
-  const searchResults = useSort(items, searchValue);
-
-  const handleSubmit = (e, postTitle, postBody) => {
-    e.preventDefault();
-
-    const id = items.length ? items[items.length - 1].id + 1 : 1;
-    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
-    const newPost = { id, title: postTitle, datetime, body: postBody };
-
-    const option = {
-      url: sessionStorage.getItem('url') || '/posts',
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newPost),
-    };
-
-    setOptions(option);
-    Report.success('Success', 'Item successfully added');
-    navigate('/');
-    //Notify.success('Items added successfully');
-    //document.location.reload();
-  };
-
-  const handleDelete = id => {
-    const options = {
-      url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    setOptions(options);
-    Report.success('Success', 'Item successfully DELETE');
-    navigate('/');
-  };
-
-  const handleEdit = (e, postTitle, postBody, id) => {
-    e.preventDefault();
-    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
-    const updatedPost = { id, title: postTitle, datetime, body: postBody };
-
-    const options = {
-      url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
-      method: 'patch', //PUT , PATCH updated
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedPost),
-    };
-
-    setOptions(options);
-    Report.success('Success', 'Item successfully updated');
-    navigate('/');
-  };
-
   return (
     <>
-      <Header title="React JS Blog" />
-      <Routes>
-        <Route
-          index // or path="/"
-          element={
-            <>
-              <Search
-                setSearchValue={setSearchValue}
-                setOptions={setOptions}
-                options={options}
-              />
-              <Home
-                post={searchResults}
-                isLoading={isLoading}
-                fetchError={fetchError}
-              />
-            </>
-          }
-        />
+      <DataProvider>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            {/* use Outlet */}
+            <Route path="/" element={<Search />}>
+              {/* add <Outlet/> to <Search/> and change index to path='/' */}
+              <Route index element={<Home />} />
+              {/* and add index to <Home/> */}
+            </Route>
 
-        <Route path="contents">
-          <Route index element={<NewContent handleSubmit={handleSubmit} />} />
-          <Route
-            path=":id"
-            element={<ContentPage posts={items} handleDelete={handleDelete} />}
-          />
+            {/* or 
+               <Route
+                index
+                element={
+                  <>
+                    <Search/>
+                    <Home/>
+                  </>
+                }
+              />  
+              without <Outlet/>
+            */}
 
-          <Route
-            path="edit/:id"
-            element={<EditContent posts={items} handleEdit={handleEdit} />}
-          />
-        </Route>
+            <Route path="contents">
+              <Route index element={<NewContent />} />
+              <Route path=":id" element={<ContentPage />} />
+              <Route path="edit/:id" element={<EditContent />} />
+            </Route>
 
-        <Route path="windowSize" element={<WindowSize />} />
-        <Route path="about" element={<About />} />
-        <Route path="*" element={<Missing />} />
-      </Routes>
+            <Route path="about" element={<About />} />
+            <Route path="windowSize" element={<WindowSize />} />
+            <Route path="*" element={<Missing />} />
+          </Route>
+
+          {/* another Route with <Outlet/>
+            this is just an example
+
+            <Route path="/hi" element={<MissingHeader />}>
+             <Route index element={<Missing />} />
+            </Route>
+          */}
+        </Routes>
+      </DataProvider>
     </>
   );
 };

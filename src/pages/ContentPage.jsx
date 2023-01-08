@@ -1,10 +1,12 @@
-import { React } from 'react';
+import { React, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Button from '../components/Ul/button/Button';
+import DataContext from '../context/DataContext';
 
-const ContentPage = ({ posts, handleDelete }) => {
+const ContentPage = () => {
+  const { items, setOptions, Report, navigate } = useContext(DataContext);
   const { id } = useParams();
-  const post = posts.find(post => post.id.toString() === id);
+  const post = items.find(post => post.id.toString() === id);
 
   const btnName =
     sessionStorage.getItem('url') === '/comments' ? 'Comment' : 'Post';
@@ -20,6 +22,19 @@ const ContentPage = ({ posts, handleDelete }) => {
       </div>
     );
   }
+
+  const handleDelete = id => {
+    const options = {
+      url: `${sessionStorage.getItem('url')}/${id}` || `/posts/${id}`,
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    setOptions(options);
+    Report.success('Success', 'Item successfully DELETE');
+    navigate('/');
+  };
 
   return (
     <main className="postPage">
